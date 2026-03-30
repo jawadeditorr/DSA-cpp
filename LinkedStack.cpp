@@ -39,22 +39,30 @@ public:
             return val;
         }
     }
+
+    void display(){
+        Node* temp = head;
+        while (temp->next!=NULL)
+        {
+            cout << temp->data << "  ";
+            temp=temp->next;
+        }
+        cout << temp->data << endl;
+    }
 };
 int main(){
     LinkedStack st;
-    cout << "using Nodes : " << endl;
     st.push('D');
     st.push('A');
     st.push('W');
     st.push('A');
     st.push('J');
+    cout << "Stack : ";
+    st.display();
+    cout << "Popping Nodes form stack : ";
     cout << st.pop();
     cout << st.pop();
     cout << st.pop();
     cout << st.pop();
     cout << st.pop();
 }
-
-/*
-
-*/

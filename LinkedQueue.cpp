@@ -63,6 +63,23 @@ public:
         }
     }
 
+    int sumOfDigits(){
+        int sum=0;
+        if (front == NULL) {
+            cout << "Queue is empty." << endl;
+            return sum;
+        }
+
+        Node* temp = front;
+
+        while (temp != NULL) {
+            sum+=temp->data;
+            temp = temp->next;
+        }
+
+        return sum;
+    }
+
     void display() {
         if (front == NULL) {
             cout << "Queue is empty." << endl;
@@ -81,32 +98,15 @@ public:
 };
 
 int main() {
-    Queue q;
+    Queue myqueue;
 
-    cout << "How many elements you want to insert: ";
-    int n;
-    cin >> n;
+    myqueue.enqueue(1);
+    myqueue.enqueue(5);
+    myqueue.enqueue(3);
 
-    for (int i = 0; i < n; i++) {
-        cout << "Enter element: ";
-        int val;
-        cin >> val;
-        q.enqueue(val);
-    }
-
-    q.display();
-
-    cout << "Do you want to dequeue any element? (no=0 / yes=1): ";
-    int choice;
-    cin >> choice;
-
-    while (choice == 1) {
-        q.dequeue();
-        cout << "Do you want to dequeue more elements? (no=0 / yes=1): ";
-        cin >> choice;
-    }
-
-    q.display();
-
+    cout << "Sum of Digits : " << myqueue.sumOfDigits() << endl;
+    myqueue.dequeue();
+    myqueue.dequeue();
+    myqueue.dequeue();
     return 0;
 }
