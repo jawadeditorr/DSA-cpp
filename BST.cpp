@@ -70,4 +70,47 @@ public:
         }
         return root;   
     }
+
+    bool search(Node* root,int key){
+        if (root==NULL)
+        {
+            return false;
+        }
+        if (key == root->data)
+        {
+            return true;
+        }
+        if (key<root->data)
+        {
+            return search(root->left,key);
+        }
+        else{
+            return search(root->right,key);
+        }
+    }
 };
+
+int main(){
+    vector<int> arr = {3,2,1,5,6,4};
+    BST tree1;
+    tree1.root = tree1.insert(tree1.root,3);
+    tree1.root = tree1.insert(tree1.root,2);
+    tree1.root = tree1.insert(tree1.root,1);
+    tree1.root = tree1.insert(tree1.root,5);
+    tree1.root = tree1.insert(tree1.root,6);
+    tree1.root = tree1.insert(tree1.root,4);
+    cout << "PreOrder : ";
+    tree1.preOrder(tree1.root);
+    cout << "\nInOrder : ";
+    tree1.inOrder(tree1.root);
+    cout << "\nPostOrder : ";
+    tree1.postOrder(tree1.root);
+}
+/*
+BST:
+    (3)
+    / \
+  (2) (5)
+  /   / \
+(1) (4) (6)
+*/
