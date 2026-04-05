@@ -14,14 +14,17 @@ public:
 };
 class BST{
 public:
+    int count;
     Node* root;
     BST(){
         root = NULL;
+        count = 0;
     }
 
     Node* insert(Node* root,int val){
         if (root==NULL)
         {
+            count++;
             return new Node(val);
         }
         if (val<root->data)
@@ -88,6 +91,8 @@ public:
             return search(root->right,key);
         }
     }
+
+    int noOfNodes(){return count;}
 };
 
 int main(){
@@ -105,6 +110,7 @@ int main(){
     tree1.inOrder(tree1.root);
     cout << "\nPostOrder : ";
     tree1.postOrder(tree1.root);
+    cout << "\nNo of Nodes : " << tree1.noOfNodes();
 }
 /*
 BST:

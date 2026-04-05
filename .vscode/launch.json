@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/jawad/OneDrive/Documents/FA24-BCS-153/Desktop/DSA/CPP",
-      "program": "c:/Users/jawad/OneDrive/Documents/FA24-BCS-153/Desktop/DSA/CPP/build/Debug/outDebug",
+      "cwd": "c:/Users/jawad/OneDrive/Desktop/DSA/DSA-cpp",
+      "program": "c:/Users/jawad/OneDrive/Desktop/DSA/DSA-cpp/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
