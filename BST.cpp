@@ -93,6 +93,16 @@ public:
     }
 
     int noOfNodes(){return count;}
+
+    int getHeight(Node* node){
+    if(node == NULL) return 0;
+    return node->height;
+}
+
+int getBalance(Node* node){
+    if(node == NULL) return 0;
+    return getHeight(node->left) - getHeight(node->right);
+}
 };
 
 int main(){
