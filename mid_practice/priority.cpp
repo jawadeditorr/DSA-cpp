@@ -129,13 +129,20 @@ public:
 
 int main(){
     PriorityQueue pq(10);
+    PriorityQueue pq1(10);
 
     pq.insertDescending(30);
     pq.insertDescending(10);
     pq.insertDescending(20);
     pq.insertDescending(5);
 
+    pq1.insertAscending(30);
+    pq1.insertAscending(10);
+    pq1.insertAscending(20);
+    pq1.insertAscending(5);
+
     pq.display();   // 5 10 20 30
+    pq1.display();   // 5 10 20 30
 
     cout << "Top: " << pq.peek() << endl;
 
