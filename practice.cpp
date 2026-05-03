@@ -1,0 +1,104 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* left;
+    Node* right;
+    int height;
+    Node(int val){
+        left=right=NULL;
+        data = val;
+    }
+};
+class BST{
+public:
+    int count;
+    Node* root;
+    BST(){
+        root = NULL;
+        count = 0;
+    }
+
+    Node* insert(Node* root,int val){
+        if (root==NULL)
+        {
+            count++;
+            return new Node(val);
+        }
+        if (val<root->data)
+        {
+            root->left=insert(root->left,val);
+        }else{
+            root->right=insert(root->right,val);
+        }
+        return root;
+    }
+
+    void preOrder(Node* root){
+        if (root == NULL)
+        {
+            return;
+        }
+        cout << root->data << " ";
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+
+    void inOrder(Node* root){
+        if (root == NULL)
+        {
+            return;
+        }
+        inOrder(root->left);
+        cout << root->data << " ";
+        inOrder(root->right);
+    }
+    
+    void postOrder(Node* root){
+        if (root == NULL)
+        {
+            return;
+        }
+        postOrder(root->left);
+        postOrder(root->right);
+        cout << root->data << " ";
+    }
+
+    bool search(Node* root,int key){
+        if (root==NULL)
+        {
+            return false;
+        }
+        if (key == root->data)
+        {
+            return true;
+        }
+        if (key<root->data)
+        {
+            return search(root->left,key);
+        }
+        else{
+            return search(root->right,key);
+        }
+    }
+
+    int noOfNodes(){return count;}  
+};
+
+int main(){
+    BST tree1;
+    tree1.root = tree1.insert(tree1.root,3);
+    tree1.root = tree1.insert(tree1.root,2);
+    tree1.root = tree1.insert(tree1.root,1);
+    tree1.root = tree1.insert(tree1.root,5);
+    tree1.root = tree1.insert(tree1.root,6);
+    tree1.root = tree1.insert(tree1.root,4);
+    cout << "PreOrder : ";
+    tree1.preOrder(tree1.root);
+    cout << "\nInOrder : ";
+    tree1.inOrder(tree1.root);
+    cout << "\nPostOrder : ";
+    tree1.postOrder(tree1.root);
+}
