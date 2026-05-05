@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class Node{
@@ -98,6 +97,69 @@ public:
         return node;
     }
 
+    Node* minValueNode(Node* node){
+        Node* current = node;
+        while(current->left != NULL)
+            current = current->left;
+        return current;
+    }
+
+    Node* deleteNode(Node* root, int val){
+        if(root == NULL) return root;
+
+        if(val < root->data)
+            root->left = deleteNode(root->left, val);
+
+        else if(val > root->data)
+            root->right = deleteNode(root->right, val);
+
+        else{
+            if(root->left == NULL || root->right == NULL){
+                Node* temp = root->left ? root->left : root->right;
+
+                if(temp == NULL){
+                    temp = root;
+                    root = NULL;
+                }
+                else{
+                    *root = *temp;
+                }
+                delete temp;
+                count--;
+            }
+            else{
+                // Node with two children
+                Node* temp = minValueNode(root->right);
+                root->data = temp->data;
+                root->right = deleteNode(root->right, temp->data);
+            }
+        }
+
+        if(root == NULL) return root;
+
+        root->height = 1 + max(getHeight(root->left), getHeight(root->right));
+
+        int balance = getBalance(root);
+
+        if(balance > 1 && getBalance(root->left) >= 0)
+            return rightRotate(root);
+
+        if(balance > 1 && getBalance(root->left) < 0){
+            root->left = leftRotate(root->left);
+            return rightRotate(root);
+        }
+
+        if(balance < -1 && getBalance(root->right) <= 0)
+            return leftRotate(root);
+
+        if(balance < -1 && getBalance(root->right) > 0){
+            root->right = rightRotate(root->right);
+            return leftRotate(root);
+        }
+
+        return root;
+    }
+
     void preOrder(Node* root){
         if(root == NULL) return;
         cout << root->data << " ";
@@ -119,35 +181,26 @@ public:
         cout << root->data << " ";
     }
 
-    Node* buildAVL(vector<int> arr){
-        for(int val : arr){
-            root = insert(root, val);
-        }
-        return root;
-    }
-
     int noOfNodes(){
         return count;
     }
 };
 
 int main(){
-    vector<int> arr = {3,2,1,5,6,4};
-
-    AVL tree;
-
-    tree.buildAVL(arr);
+    AVL tree1;
+    cout << "===AVL===" << endl;
+    tree1.root = tree1.insert(tree1.root,10);
+    tree1.root = tree1.insert(tree1.root,30);
+    tree1.root = tree1.insert(tree1.root,20);
 
     cout << "PreOrder : ";
-    tree.preOrder(tree.root);
+    tree1.preOrder(tree1.root);
+
+    cout << "\nAfter Deletion (delete 20): ";
+    tree1.root = tree1.deleteNode(tree1.root, 20);
 
     cout << "\nInOrder : ";
-    tree.inOrder(tree.root);
-
-    cout << "\nPostOrder : ";
-    tree.postOrder(tree.root);
-
-    cout << "\nNo of Nodes : " << tree.noOfNodes();
+    tree1.preOrder(tree1.root);
 
     return 0;
 }
