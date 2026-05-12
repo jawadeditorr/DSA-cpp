@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <queue>
 using namespace std;
 
 class Graph{
@@ -23,6 +24,72 @@ public:
             }
             cout << endl;
         }
+    }
+    
+    void AdjacencyMatrix(){
+
+        int matrix[V][V];
+
+        // Initialize matrix with 0
+        for(int i = 0; i < V; i++){
+            for(int j = 0; j < V; j++){
+                matrix[i][j] = 0;
+            }
+        }
+
+        // Fill matrix
+        for(int i = 0; i < V; i++){
+
+            for(int neighbor : l[i]){
+                matrix[i][neighbor] = 1;
+            }
+        }
+
+        cout << "\nAdjacency Matrix:\n";
+
+        for(int i = 0; i < V; i++){
+
+            for(int j = 0; j < V; j++){
+                cout << matrix[i][j] << " ";
+            }
+
+            cout << endl;
+        }
+    }
+
+    void BFS(int start){
+
+        bool *visited = new bool[V];
+
+        for(int i = 0; i < V; i++){
+            visited[i] = false;
+        }
+
+        queue<int> q;
+
+        visited[start] = true;
+        q.push(start);
+
+        cout << "\nBFS Traversal: ";
+
+        while(!q.empty()){
+
+            int node = q.front();
+            q.pop();
+
+            cout << node << " ";
+
+            for(int neighbor : l[node]){
+
+                if(!visited[neighbor]){
+
+                    visited[neighbor] = true;
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        cout << endl;
     }
 };
 
