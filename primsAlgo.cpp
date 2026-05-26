@@ -1,75 +1,129 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <list>
 using namespace std;
 
-typedef pair<int, int> pii;
+class Graph{
 
-// Prim's Algorithm
-void primsAlgorithm(int V, vector<vector<pii>> &adj) {
-    
-    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    int V;
 
-    vector<bool> visited(V, false);
+    list<pair<int,int>> *l;
 
-    int totalCost = 0;
+public:
 
-    // Start from node 0
-    pq.push({0, 0}); // {weight, node}
+    Graph(int V){
 
-    cout << "Edges in MST:\n";
+        this->V = V;
 
-    while (!pq.empty()) {
-        int weight = pq.top().first;
-        int node = pq.top().second;
-        pq.pop();
+        l = new list<pair<int,int>>[V];
+    }
 
-        if (visited[node])
-            continue;
+    void addEdge(int edge1, int edge2, int weight){
 
-        visited[node] = true;
-        totalCost += weight;
+        l[edge1].push_back({edge2, weight});
 
-        // Traverse neighbors
-        for (auto neighbor : adj[node]) {
-            int adjNode = neighbor.first;
-            int edgeWeight = neighbor.second;
+        l[edge2].push_back({edge1, weight});
+    }
 
-            if (!visited[adjNode]) {
-                pq.push({edgeWeight, adjNode});
+    void prims(){
+
+        // {weight, node, parent}
+        priority_queue<
+            vector<int>,
+            vector<vector<int>>,
+            greater<vector<int>>
+        > pq;
+
+        vector<bool> visited(V, false);
+
+        int totalCost = 0;
+
+        // Start from node 0
+        pq.push({0, 0, -1});
+
+        cout << "\nEdges in MST:\n";
+
+        while(!pq.empty()){
+
+            auto top = pq.top();
+            pq.pop();
+
+            int weight = top[0];
+            int node = top[1];
+            int parent = top[2];
+
+            if(visited[node])
+                continue;
+
+            visited[node] = true;
+
+            totalCost += weight;
+
+            // Ignore first node
+            if(parent != -1){
+
+                cout << parent
+                     << " - "
+                     << node
+                     << " : "
+                     << weight
+                     << endl;
             }
+
+            for(auto neighbour : l[node]){
+
+                int adjNode = neighbour.first;
+                int edgeWeight = neighbour.second;
+
+                if(!visited[adjNode]){
+
+                    pq.push({
+                        edgeWeight,
+                        adjNode,
+                        node
+                    });
+                }
+            }
+        }
+
+        cout << "\nMinimum Cost = "
+             << totalCost << endl;
+    }
+
+    void display(){
+
+        for(int i = 0; i < V; i++){
+
+            cout << i << " : ";
+
+            for(auto j : l[i]){
+
+                cout << "(" << j.first
+                     << "," << j.second << ") ";
+            }
+
+            cout << endl;
         }
     }
 
-    cout << "Total Minimum Cost: " << totalCost << endl;
-}
+};
 
-int main() {
+int main(){
 
-    int V = 5;
+    Graph g1(5);
 
-    vector<vector<pii>> adj(V);
+    g1.addEdge(0,1,5);
 
-    // Adding edges
-    adj[0].push_back({1, 2});
-    adj[1].push_back({0, 2});
+    g1.addEdge(1,2,3);
 
-    adj[0].push_back({3, 6});
-    adj[3].push_back({0, 6});
+    g1.addEdge(1,3,7);
 
-    adj[1].push_back({2, 3});
-    adj[2].push_back({1, 3});
+    g1.addEdge(2,3,2);
 
-    adj[1].push_back({3, 8});
-    adj[3].push_back({1, 8});
+    g1.addEdge(2,4,8);
 
-    adj[1].push_back({4, 5});
-    adj[4].push_back({1, 5});
+    g1.display();
 
-    adj[2].push_back({4, 7});
-    adj[4].push_back({2, 7});
-
-    primsAlgorithm(V, adj);
-
-    return 0;
+    g1.prims();
 }
