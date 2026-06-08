@@ -149,9 +149,12 @@ int main(){
     //60, 40, 80, 20, 50, 70, 90, 10, 30, 45, 55
     cout << "===BST===" << endl;
 
+    tree1.root = tree1.insert(tree1.root,70);
+    tree1.root = tree1.insert(tree1.root,80);
+    tree1.root = tree1.insert(tree1.root,60);
+    tree1.root = tree1.insert(tree1.root,65);
+    tree1.root = tree1.insert(tree1.root,90);
     tree1.root = tree1.insert(tree1.root,10);
-    tree1.root = tree1.insert(tree1.root,30);
-    tree1.root = tree1.insert(tree1.root,20);
     // tree1.root = tree1.insert(tree1.root,60);
     // tree1.root = tree1.insert(tree1.root,40);
     // tree1.root = tree1.insert(tree1.root,80);
@@ -165,10 +168,10 @@ int main(){
     // tree1.root = tree1.insert(tree1.root,55);
     cout << "PreOrder : ";
     tree1.preOrder(tree1.root);
-    // cout << "\nInOrder : ";
-    // tree1.inOrder(tree1.root);
-    // cout << "\nPostOrder : ";
-    // tree1.postOrder(tree1.root);
+    cout << "\nInOrder : ";
+    tree1.inOrder(tree1.root);
+    cout << "\nPostOrder : ";
+    tree1.postOrder(tree1.root);
     // cout << "\nNo of Nodes : " << tree1.noOfNodes();
     // tree1.deleteNode(tree1.root,40);
 
