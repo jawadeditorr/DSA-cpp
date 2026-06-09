@@ -23,5 +23,5 @@ bool binarySearch(int key,int arr[],int size){
 
 int main(){
     int arr[] = {10, 20, 30, 40, 50, 60, 70};
-    cout << binarySearch(40,arr,7);
+    if(binarySearch(40,arr,7)) cout << "true";
 }
