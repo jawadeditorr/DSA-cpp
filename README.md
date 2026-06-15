@@ -30,11 +30,11 @@ C++
 
 Clone the repository:
 
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/jawadeditorr/DSA-cpp.git
 
 Navigate to the folder:
 
-cd your-repo-name
+cd DSA-cpp
 
 Compile and run any file:
 
