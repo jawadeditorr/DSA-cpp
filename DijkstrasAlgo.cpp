@@ -1,4 +1,6 @@
 #include <iostream>
+#include <climits>
+#include <algorithm>
 #include <vector>
 #include <queue>
 #include <list>
@@ -39,8 +41,9 @@ public:
             cout << endl;
         }
     }
-    void dijkstra(int src){
-        vector<int> dist (V, INT16_MAX);
+    void dijkstra(int src, int goal){
+        vector<int> dist (V, INT_MAX);
+        vector<int> parent(V, -1);
         priority_queue<
             pair<int,int>,          //type of value
             vector<pair<int,int>>,  //container
@@ -53,15 +56,37 @@ public:
             int currentDist = pq.top().first;
             int node = pq.top().second;
             pq.pop();
+            if(currentDist > dist[node]) continue;
+            if(node == goal){
+                break;
+            }
             for(auto nbr : l[node]){
                 int adjNode = nbr.first;
                 int weight = nbr.second;
-                if(currentDist+weight<adjNode){
+                if(currentDist+weight<dist[adjNode]){
                     dist[adjNode] = currentDist+weight;
+                    parent[adjNode] = node;
                     pq.push({dist[adjNode],adjNode});
                 }
             }
         }
+        cout << "Distance = " << dist[goal] << endl;
+
+        vector<int> path;
+
+        for(int v = goal; v != -1; v = parent[v]){
+            path.push_back(v);
+        }
+
+        reverse(path.begin(), path.end());
+
+        cout << "Path: ";
+
+        for(int x : path){
+            cout << x << " ";
+        }
+
+        cout << endl;
     }
 };
 
@@ -79,5 +104,7 @@ int main(){
 
     g1.addEdge(2,4,8);
 
-    g1.display();
+    g1.dijkstra(0,3);
+
+    //g1.display();
 }
